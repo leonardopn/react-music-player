@@ -1,4 +1,4 @@
-import { Iconify } from "@/components/Iconify";
+import { PlayerActionButton } from "@/components/PlayerActionButton";
 import Image from "next/image";
 import defaultCover from "../assets/cover.png";
 
@@ -12,18 +12,9 @@ export default function Home() {
 					<p className="text-gray-400 font-sans text-lg">Banda Rocketseat</p>
 				</div>
 				<div className="flex justify-between">
-					<Iconify
-						icon="ph:caret-double-left-fill"
-						className="text-white w-7 h-7 cursor-pointer active:text-white/70 transition-colors"
-					/>
-					<Iconify
-						icon="ph:play-fill"
-						className="text-white w-7 h-7 cursor-pointer active:text-white/70 transition-colors"
-					/>
-					<Iconify
-						icon="ph:caret-double-right-fill"
-						className="text-white w-7 h-7 cursor-pointer active:text-white/70 transition-colors"
-					/>
+					<PlayerActionButton variant="previous" />
+					<PlayerActionButton variant="play" />
+					<PlayerActionButton variant="next" />
 				</div>
 				<div className="flex flex-col gap-2">
 					<div className="h-2 w-full bg-gray-500 rounded-md overflow-hidden">
