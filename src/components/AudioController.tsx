@@ -1,6 +1,6 @@
 "use client";
 
-import { SyntheticEvent, useEffect, useMemo, useRef, useState } from "react";
+import { SyntheticEvent, useEffect, useMemo, useRef, useState, MouseEvent } from "react";
 import { PlayerActionButton } from "./PlayerActionButton";
 import dayjs from "dayjs";
 
@@ -42,6 +42,16 @@ export function AudioController() {
 		setTimeRest(e.currentTarget.duration - e.currentTarget.currentTime);
 	}
 
+	function handleCalculateClickPositionPercentage(e: MouseEvent<HTMLDivElement>) {
+		const bounding = e.currentTarget.getBoundingClientRect();
+		const positionLength = e.clientX - bounding.left;
+		const percentage = positionLength / bounding.width;
+
+		if (audioRef.current) {
+			audioRef.current.currentTime = audioRef.current.duration * percentage;
+		}
+	}
+
 	const scrollMusicPercentage = useMemo(() => {
 		if (musicDuration === 0) return 0;
 
@@ -68,13 +78,11 @@ export function AudioController() {
 			</div>
 			<div className="flex flex-col gap-2">
 				<div
-					className="h-2 w-full bg-gray-500 rounded-md overflow-hidden"
-					onClick={e => {
-						console.log(e.pageX);
-					}}>
+					className="h-2 w-full bg-gray-500 rounded-md overflow-hidden cursor-pointer"
+					onClick={handleCalculateClickPositionPercentage}>
 					<div
 						className="h-full bg-white rounded-md"
-						style={{ width: scrollMusicPercentage }}
+						style={{ width: `${scrollMusicPercentage}%` }}
 					/>
 				</div>
 				<div className="flex justify-between">
