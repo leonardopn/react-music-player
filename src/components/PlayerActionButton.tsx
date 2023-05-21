@@ -1,10 +1,11 @@
+import { IconProps } from "@iconify/react";
 import { Iconify } from "./Iconify";
 
-interface PlayerActionButtonProps {
+interface PlayerActionButtonProps extends Omit<IconProps, "icon"> {
 	variant: "next" | "previous" | "play" | "pause";
 }
 
-export function PlayerActionButton({ variant }: PlayerActionButtonProps) {
+export function PlayerActionButton({ variant, ...restProps }: PlayerActionButtonProps) {
 	const icon = {
 		next: "ph:caret-double-right-fill",
 		previous: "ph:caret-double-left-fill",
@@ -16,6 +17,7 @@ export function PlayerActionButton({ variant }: PlayerActionButtonProps) {
 		<Iconify
 			icon={icon[variant]}
 			className="text-white w-7 h-7 cursor-pointer active:text-white/70 transition-colors"
+			{...restProps}
 		/>
 	);
 }
