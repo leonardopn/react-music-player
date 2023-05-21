@@ -23,6 +23,7 @@
 		"typescript": "5.0.4"
 	},
 	"devDependencies": {
-		"eslint-config-leonardopn": "^1.0.1"
+		"@iconify/react": "^4.1.0",
+		"eslint-config-leonardopn": "1.0.3"
 	}
 }
