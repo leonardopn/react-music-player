@@ -1,3 +1,7 @@
 {
-	"conventionalCommits.scopes": ["Component: AudioController", "Component: MusicProgress"]
+	"conventionalCommits.scopes": [
+		"Component: AudioController",
+		"Component: MusicProgress",
+		"Component: VolumeController"
+	]
 }
