@@ -8,18 +8,16 @@ import { PlayerActionButton } from "./PlayerActionButton";
 export function AudioController() {
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
+	const [, setInitialDUration] = useState(0);
 	const [isPlaying, setIsPlaying] = useState(false);
 
-	const [musicDuration, setMusicDuration] = useState(0);
-	const [timeRest, setTimeRest] = useState(0);
 	const [currentTime, setCurrentTime] = useState(0);
 	const [volume, setVolume] = useState(0);
 
 	useEffect(() => {
 		if (audioRef.current) {
 			audioRef.current.volume = 1;
-			setTimeRest(audioRef.current.duration);
-			setMusicDuration(audioRef.current.duration);
+			setInitialDUration(audioRef.current.duration);
 		}
 	}, []);
 
@@ -27,25 +25,20 @@ export function AudioController() {
 		if (audioRef.current) {
 			if (isPlaying) {
 				audioRef.current.pause();
+				setIsPlaying(false);
 			} else {
 				audioRef.current.play();
+				setIsPlaying(true);
 			}
 		}
 	}
 
-	function onPlayMusic(e: SyntheticEvent<HTMLAudioElement>) {
-		setTimeRest(e.currentTarget.duration);
-		setMusicDuration(e.currentTarget.duration);
-		onPauseMusic();
-	}
-
-	function onPauseMusic() {
-		setIsPlaying(oldValue => !oldValue);
-	}
-
 	function onTimeUpdate(e: SyntheticEvent<HTMLAudioElement, Event>) {
 		setCurrentTime(e.currentTarget.currentTime);
-		setTimeRest(e.currentTarget.duration - e.currentTarget.currentTime);
+
+		if (e.currentTarget.currentTime === e.currentTarget.duration) {
+			setIsPlaying(false);
+		}
 	}
 
 	function onVolumeChange(e: SyntheticEvent<HTMLAudioElement, Event>) {
@@ -64,7 +57,7 @@ export function AudioController() {
 
 	function handleSetCurrentTime(percent: number) {
 		if (audioRef.current) {
-			audioRef.current.currentTime = percent * musicDuration;
+			audioRef.current.currentTime = percent * audioRef.current.duration;
 		}
 	}
 
@@ -76,10 +69,10 @@ export function AudioController() {
 
 	return (
 		<div className="flex flex-col gap-7 ">
-			<div className="flex justify-between items-center gap-3">
+			<div className="flex justify-between items-center gap-3 w-[80%] self-center">
 				<Iconify icon="ph:speaker-simple-none-fill" className="text-white w-7 h-7" />
 				<div
-					className="h-2 w-full bg-gray-500 rounded-md  cursor-pointer"
+					className="h-2 w-full bg-gray-500 rounded-md cursor-pointer"
 					onClick={handleCalculateClickPositionVolumePercentage}>
 					<div
 						className="h-full bg-white rounded-md flex justify-end items-center min-w-[10%]"
@@ -96,20 +89,19 @@ export function AudioController() {
 					onClick={handleTogglePlay}
 				/>
 				<PlayerActionButton variant="next" />
-				<audio
-					src={"/music.mp3"}
-					ref={audioRef}
-					onPlay={onPlayMusic}
-					onPause={onPauseMusic}
-					onTimeUpdate={onTimeUpdate}
-					onVolumeChange={onVolumeChange}
-				/>
 			</div>
 			<MusicProgress
 				currentTime={currentTime}
-				musicDuration={musicDuration}
-				timeRest={timeRest}
+				musicDuration={audioRef.current?.duration || 0}
 				setCurrentTime={handleSetCurrentTime}
+			/>
+			<audio
+				src={"/music.mp3"}
+				ref={audioRef}
+				onTimeUpdate={onTimeUpdate}
+				onPlay={() => setIsPlaying(true)}
+				onPause={() => setIsPlaying(false)}
+				onVolumeChange={onVolumeChange}
 			/>
 		</div>
 	);

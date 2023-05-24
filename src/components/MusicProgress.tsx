@@ -3,17 +3,17 @@ import { MouseEvent, useMemo } from "react";
 
 interface MusicProgressProps {
 	currentTime: number;
-	timeRest: number;
 	musicDuration: number;
 	setCurrentTime: (percent: number) => void;
 }
 
 export function MusicProgress({
 	currentTime,
-	timeRest,
 	musicDuration = 0,
 	setCurrentTime,
 }: MusicProgressProps) {
+	const timeRest = useMemo(() => musicDuration - currentTime, [currentTime, musicDuration]);
+
 	const currentTimeFormatted = useMemo(
 		() => dayjs(currentTime * 1000 || 0).format("mm:ss"),
 		[currentTime]
