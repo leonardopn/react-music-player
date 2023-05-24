@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { MouseEvent, useMemo } from "react";
+import { Slider } from "./Slider";
 
 interface MusicProgressProps {
 	currentTime: number;
@@ -39,14 +40,10 @@ export function MusicProgress({
 
 	return (
 		<div className="flex flex-col gap-2">
-			<div
-				className="h-2 w-full bg-gray-500 rounded-md overflow-hidden cursor-pointer"
-				onClick={handleCalculateClickPositionMusicPercentage}>
-				<div
-					className="h-full bg-white rounded-md"
-					style={{ width: `${progressMusicPercentage}%` }}
-				/>
-			</div>
+			<Slider
+				value={progressMusicPercentage}
+				onClick={handleCalculateClickPositionMusicPercentage}
+			/>
 			<div className="flex justify-between">
 				<p className="text-gray-400 font-sans text-sm ">{currentTimeFormatted}</p>
 				<p className="text-gray-400 font-sans text-sm ">{timeRestFormatted}</p>

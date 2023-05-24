@@ -18,6 +18,7 @@ export function AudioController() {
 		if (audioRef.current) {
 			audioRef.current.volume = 1;
 			setInitialDUration(audioRef.current.duration);
+			setVolume(1);
 		}
 	}, []);
 

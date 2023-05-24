@@ -2,6 +2,7 @@
 	"conventionalCommits.scopes": [
 		"Component: AudioController",
 		"Component: MusicProgress",
-		"Component: VolumeController"
+		"Component: VolumeController",
+		"Component: Slider"
 	]
 }

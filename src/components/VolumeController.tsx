@@ -1,5 +1,6 @@
 import { MouseEvent, useMemo } from "react";
 import { Iconify } from "./Iconify";
+import { Slider } from "./Slider";
 
 interface VolumeControllerProps {
 	volume: number;
@@ -24,15 +25,10 @@ export function VolumeController({ volume, setCurrentVolume }: VolumeControllerP
 	return (
 		<div className="flex justify-between items-center gap-3 w-[80%] self-center">
 			<Iconify icon="ph:speaker-simple-none-fill" className="text-white w-7 h-7" />
-			<div
-				className="h-2 w-full bg-gray-500 rounded-md cursor-pointer flex items-center "
-				onClick={handleCalculateClickPositionVolumePercentage}>
-				<div
-					className="h-full bg-white rounded-md flex justify-end items-center "
-					style={{ width: `${progressVolumePercentage}%` }}
-				/>
-				<div draggable="true" className="bg-white h-4 w-4 rounded-full -m-2" />
-			</div>
+			<Slider
+				value={progressVolumePercentage}
+				onClick={handleCalculateClickPositionVolumePercentage}
+			/>
 			<Iconify icon="ph:speaker-simple-high-fill" className="text-white w-7 h-7" />
 		</div>
 	);
