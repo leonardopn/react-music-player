@@ -5,7 +5,7 @@ interface SliderProps {
 	value: number;
 }
 
-export function Slider({ onClick, value }: SliderProps) {
+export function Ranger({ onClick, value }: SliderProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [currentValue, setCurrentValue] = useState(value);
 
@@ -25,7 +25,23 @@ export function Slider({ onClick, value }: SliderProps) {
 	}
 
 	return (
-		<div
+		<input
+			type="range"
+			min="1"
+			max="100"
+			value={50}
+			className=" appearance-none w-full h-2 bg-white rounded-lg outline-none"
+			style={{
+				background: `linear-gradient(to right, #CBD5E0 0%, #CBD5E0 ${value}%, #FFF ${value}%, #FFF 100%)`,
+			}}
+			onChange={e => setCurrentValue(Number(e.target.value))}
+			id="myRange"
+		/>
+	);
+}
+
+{
+	/* <div
 			ref={containerRef}
 			className="h-2 w-full bg-gray-500 rounded-md cursor-pointer flex items-center "
 			onClick={onClick}>
@@ -34,6 +50,5 @@ export function Slider({ onClick, value }: SliderProps) {
 				style={{ width: `${currentValue}%` }}
 			/>
 			<div draggable="true" className="bg-white h-4 w-4 rounded-full -m-2" onDrag={onDrag} />
-		</div>
-	);
+		</div> */
 }

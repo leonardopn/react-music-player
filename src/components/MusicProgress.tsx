@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { MouseEvent, useMemo } from "react";
-import { Slider } from "./Slider";
+import { Ranger } from "./Ranger";
 
 interface MusicProgressProps {
 	currentTime: number;
@@ -40,7 +40,7 @@ export function MusicProgress({
 
 	return (
 		<div className="flex flex-col gap-2">
-			<Slider
+			<Ranger
 				value={progressMusicPercentage}
 				onClick={handleCalculateClickPositionMusicPercentage}
 			/>

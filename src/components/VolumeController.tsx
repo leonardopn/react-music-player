@@ -1,6 +1,6 @@
 import { MouseEvent, useMemo } from "react";
 import { Iconify } from "./Iconify";
-import { Slider } from "./Slider";
+import { Ranger } from "./Ranger";
 
 interface VolumeControllerProps {
 	volume: number;
@@ -25,7 +25,7 @@ export function VolumeController({ volume, setCurrentVolume }: VolumeControllerP
 	return (
 		<div className="flex justify-between items-center gap-3 w-[80%] self-center">
 			<Iconify icon="ph:speaker-simple-none-fill" className="text-white w-7 h-7" />
-			<Slider
+			<Ranger
 				value={progressVolumePercentage}
 				onClick={handleCalculateClickPositionVolumePercentage}
 			/>

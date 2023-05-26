@@ -3,6 +3,6 @@
 		"Component: AudioController",
 		"Component: MusicProgress",
 		"Component: VolumeController",
-		"Component: Slider"
+		"Component: Ranger"
 	]
 }
